@@ -1,0 +1,47 @@
+# Bank Data Analysis Configuration
+
+# Stock tickers to analyze
+tickers:
+  - JPM   # JPMorgan Chase
+  - BAC   # Bank of America
+  - C     # Citigroup
+  - WFC   # Wells Fargo
+  - GS    # Goldman Sachs
+  # Add more tickers as needed
+  # - MS  # Morgan Stanley
+  # - USB # U.S. Bancorp
+
+# Date range for data fetching
+date_range:
+  start: '2020-01-01'
+  end: null  # null means today
+
+# Analysis parameters
+analysis:
+  price_type: 'Adj Close'  # 'Adj Close', 'Close', 'Open', 'High', 'Low'
+  returns_method: 'pct_change'  # 'pct_change' or 'log'
+  volatility_window: 30  # Rolling window for volatility calculation (days)
+  risk_free_rate: 0.02  # Annual risk-free rate for Sharpe ratio
+  trading_days_per_year: 252
+
+# Visualization settings
+visualization:
+  style: 'whitegrid'  # seaborn style
+  default_figsize: [14, 7]
+  dpi: 300
+  save_plots: true
+  plot_format: 'png'  # 'png', 'pdf', 'svg'
+
+# Output paths
+paths:
+  data_raw: 'data/raw'
+  data_processed: 'data/processed'
+  output_plots: 'output/plots'
+  output_reports: 'output/reports'
+  logs: 'logs'
+
+# Logging configuration
+logging:
+  level: 'INFO'  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_file: 'logs/bank_analysis.log'
+  console_output: true

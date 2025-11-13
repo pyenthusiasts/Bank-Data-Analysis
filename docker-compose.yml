@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  bank-analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bank-analysis:latest
+    container_name: bank-analysis
+    volumes:
+      # Mount data directory for persistence
+      - ./data:/app/data
+      # Mount output directory for results
+      - ./output:/app/output
+      # Mount configuration
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: bank-analysis --config config.yaml --save-data
+    restart: unless-stopped
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bank-analysis:latest
+    container_name: bank-analysis-jupyter
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./config.yaml:/app/config.yaml:ro
+      - ./src:/app/src
+    ports:
+      - "8888:8888"
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: >
+      jupyter notebook
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+      notebooks/
+    restart: unless-stopped
+
+  # Development service with all tools
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bank-analysis:latest
+    container_name: bank-analysis-dev
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    restart: "no"
+
+volumes:
+  data:
+  output:
+
+networks:
+  default:
+    name: bank-analysis-network
