@@ -172,3 +172,45 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Project-specific ignores
+# Data files
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.json
+data/processed/*.csv
+data/processed/*.parquet
+data/processed/*.json
+
+# Keep directory structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/README.md
+
+# Output files
+output/plots/*.png
+output/plots/*.pdf
+output/plots/*.svg
+output/reports/*.pdf
+output/reports/*.html
+output/examples/*.png
+output/custom_analysis/*.png
+
+# Keep directory structure
+!output/plots/.gitkeep
+!output/reports/.gitkeep
+
+# Logs
+logs/*.log
+
+# Keep directory structure
+!logs/.gitkeep
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
